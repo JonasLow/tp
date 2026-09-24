@@ -77,7 +77,7 @@ public class Ui {
     }
 
     private void printIndent(String line) {
-        out.println(INDENT + line);
+        out.println(line);
     }
 
     public void showGoodbye() {
@@ -122,6 +122,19 @@ public class Ui {
     public void showOrderCreated(Order order) {
         printIndent("Order " + order.getId() + " created for " + order.getCustomer() + ".");
         printOrderTable(order, "Qty");
+    }
+
+    /**
+     * Shows the confirmation for a cancelled order, including the stock restored
+     * and the amount excluded from recorded sales.
+     *
+     * @param order the order that was cancelled
+     */
+    public void showOrderCancelled(Order order) {
+        printIndent("Order " + order.getId() + " for " + order.getCustomer() + " cancelled.");
+        printIndent("Stock restored:");
+        printOrderTable(order, "Restored");
+        printIndent("Amount excluded from recorded sales: " + formatMoney(order.getTotal()));
     }
     /**
      * Shows every order as a table: number, customer, units bought, total and status.
